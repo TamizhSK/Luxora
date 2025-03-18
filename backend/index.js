@@ -1,25 +1,27 @@
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+const wardrobeRoutes = require('./routes/wardrobe');
+
+// Load environment variables
+dotenv.config();
+
 const app = express();
+const PORT = process.env.PORT || 4000;
+
+// Middlewares
 app.use(express.json());
 app.use(cors());
 
-// Example route: CRUD for wardrobe items
-app.get('/api/wardrobe', (req, res) => {
-  // Connect to MySQL and fetch wardrobe items
-  res.json({ items: [] });
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/wardrobe', wardrobeRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(500).json({ message: 'Internal Server Error' });
 });
 
-// JWT Authentication Middleware Example
-const jwt = require('jsonwebtoken');
-const authenticate = (req, res, next) => {
-  const token = req.headers['authorization'];
-  if (!token) return res.sendStatus(401);
-  jwt.verify(token, 'your_jwt_secret', (err, user) => {
-    if (err) return res.sendStatus(403);
-    req.user = user;
-    next();
-  });
-};
-
-app.listen(4000, () => console.log('Backend running on port 4000'));
+app.listen(PORT, () => console.log(`✅ Backend running on port ${PORT}`));

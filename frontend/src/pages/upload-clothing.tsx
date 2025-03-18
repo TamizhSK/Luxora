@@ -32,28 +32,45 @@ function UploadClothingContent() {
   };
 
   return (
-    <div className="container mx-auto p-8">
-      <Card>
-        <CardHeader>
-          <CardTitle>Upload Clothing</CardTitle>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-6 py-12">
+      <Card className="w-full max-w-lg p-8 shadow-lg rounded-2xl border border-gray-200 bg-white">
+        <CardHeader className="text-center">
+          <CardTitle className="text-3xl font-semibold text-red-700">
+            Upload Clothing
+          </CardTitle>
         </CardHeader>
-        <CardContent>
-          <Label>Image</Label>
-          <Input type="file" onChange={(e) => e.target.files && setFile(e.target.files[0])} />
+        
+        <CardContent className="space-y-6">
+          {/* Image Upload */}
+          <div>
+            <Label className="block text-gray-700 font-medium">Upload Image</Label>
+            <Input 
+              type="file"
+              className="mt-2 border border-gray-300 rounded-md p-2 w-full"
+              onChange={(e) => e.target.files && setFile(e.target.files[0])}
+            />
+          </div>
 
-          <Label>Clothing Type</Label>
-          <select 
-            value={type} 
-            onChange={(e) => setType(e.target.value as "top" | "bottom" | "shoes")}
-            className="border p-2 rounded w-full"
+          {/* Clothing Type Selector */}
+          <div>
+            <Label className="block text-gray-700 font-medium">Select Clothing Type</Label>
+            <select 
+              value={type} 
+              onChange={(e) => setType(e.target.value as "top" | "bottom" | "shoes")}
+              className="mt-2 border border-gray-300 rounded-md p-2 w-full bg-white focus:ring-2 focus:ring-red-500"
+            >
+              <option value="">Select Type</option>
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+              <option value="shoes">Shoes</option>
+            </select>
+          </div>
+
+          {/* Upload Button */}
+          <Button 
+            onClick={handleUpload} 
+            className="w-full text-lg py-3 bg-red-600 hover:bg-red-700 text-white font-semibold transition-all shadow-md"
           >
-            <option value="">Select Type</option>
-            <option value="top">Top</option>
-            <option value="bottom">Bottom</option>
-            <option value="shoes">Shoes</option>
-          </select>
-
-          <Button onClick={handleUpload} variant="default" className="mt-4">
             Upload
           </Button>
         </CardContent>
