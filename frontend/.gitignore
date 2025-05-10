@@ -1,0 +1,11 @@
+# Next.js build output
+.next/
+
+# Dependencies
+/node_modules
+
+# Environment variables
+.env
+
+# TypeScript
+next-env.d.ts
