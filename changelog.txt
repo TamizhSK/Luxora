@@ -1,1 +1,1 @@
-Project notes updated on 2025-11-03
+Release notes for version 2.6.7
